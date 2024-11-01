@@ -39,9 +39,12 @@ public class CompletionClientProvider {
   }
 
   public static ClaudeClient getClaudeClient() {
+    final ClaudeClient.Builder builder = new ClaudeClient.Builder(getCredential(CredentialKey.ANTHROPIC_API_KEY), AnthropicSettings.getCurrentState().getApiVersion());
+    if (AnthropicSettings.getCurrentState().getHost() != null && !AnthropicSettings.getCurrentState().getHost().isEmpty()) {
+        builder.setHost(AnthropicSettings.getCurrentState().getHost());
+    }
     return new ClaudeClient(
-        getCredential(CredentialKey.ANTHROPIC_API_KEY),
-        AnthropicSettings.getCurrentState().getApiVersion(),
+        builder,
         getDefaultClientBuilder());
   }
 

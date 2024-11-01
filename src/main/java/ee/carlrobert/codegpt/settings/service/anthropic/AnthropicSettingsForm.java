@@ -19,6 +19,7 @@ public class AnthropicSettingsForm {
   private final JBPasswordField apiKeyField;
   private final JBTextField apiVersionField;
   private final JBTextField modelField;
+  private final JBTextField hostField;
 
   public AnthropicSettingsForm(AnthropicSettingsState settings) {
     apiKeyField = new JBPasswordField();
@@ -29,6 +30,7 @@ public class AnthropicSettingsForm {
     });
     apiVersionField = new JBTextField(settings.getApiVersion(), 35);
     modelField = new JBTextField(settings.getModel(), 35);
+    hostField = new JBTextField(settings.getHost(), 35);
   }
 
   public JPanel getForm() {
@@ -51,6 +53,11 @@ public class AnthropicSettingsForm {
                 .withComment(CodeGPTBundle.get(
                     "settingsConfigurable.service.anthropic.model.comment"))
                 .resizeX(false))
+            .add(UI.PanelFactory.panel(hostField)
+                .withLabel(CodeGPTBundle.get("settingsConfigurable.service.custom.anthropic.url.label"))
+                .withComment(CodeGPTBundle.get(
+                    "settingsConfigurable.service.anthropic.url.comment"))
+                .resizeX(false))
             .createPanel())
         .addComponentFillVertically(new JPanel(), 0)
         .getPanel();
@@ -60,6 +67,7 @@ public class AnthropicSettingsForm {
     var state = new AnthropicSettingsState();
     state.setModel(modelField.getText());
     state.setApiVersion(apiVersionField.getText());
+    state.setHost(hostField.getText());
     return state;
   }
 
@@ -68,6 +76,7 @@ public class AnthropicSettingsForm {
     apiKeyField.setText(CredentialsStore.getCredential(ANTHROPIC_API_KEY));
     apiVersionField.setText(state.getApiVersion());
     modelField.setText(state.getModel());
+    hostField.setText(state.getHost());
   }
 
   public @Nullable String getApiKey() {
