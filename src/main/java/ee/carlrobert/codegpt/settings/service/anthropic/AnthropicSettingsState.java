@@ -6,6 +6,7 @@ public class AnthropicSettingsState {
 
   private String apiVersion = "2023-06-01";
   private String model = "claude-3-opus-20240229";
+  private String host = "";
 
   public String getApiVersion() {
     return apiVersion;
@@ -23,6 +24,14 @@ public class AnthropicSettingsState {
     this.model = model;
   }
 
+  public String getHost() {
+    return host;
+  }
+
+  public void setHost(final String host) {
+    this.host = host;
+  }
+
   @Override
   public boolean equals(Object o) {
     if (this == o) {
@@ -32,11 +41,11 @@ public class AnthropicSettingsState {
       return false;
     }
     AnthropicSettingsState that = (AnthropicSettingsState) o;
-    return Objects.equals(apiVersion, that.apiVersion) && Objects.equals(model, that.model);
+    return Objects.equals(apiVersion, that.apiVersion) && Objects.equals(model, that.model) && Objects.equals(host, that.host);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(apiVersion, model);
+    return Objects.hash(apiVersion, model, host);
   }
 }
